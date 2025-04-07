@@ -1,5 +1,8 @@
+import styles from './WeatherDetail.module.css'
+
 import { Weather } from "../../Hooks/useWeather";
 import { formatTemperature } from "../../utils";
+
 
 type WeatherDetailsProps = {
   weather: Weather;
@@ -8,11 +11,11 @@ type WeatherDetailsProps = {
 export default function WeatherDetail({ weather }: WeatherDetailsProps) {
   return (
     <>
-      <div>
+      <div className={styles.container}>
         <h2>Clima de: {weather.name}</h2>
-        <p>Clima de: {formatTemperature(weather.main.temp)} &deg;C</p>
+        <p className={styles.current}>{formatTemperature(weather.main.temp)} &deg;C</p>
 
-        <div>
+        <div className={styles.temperatures}>
           <p>Min: <span>{formatTemperature(weather.main.temp_min)} &deg;C</span></p>
           <p>Max: <span>{formatTemperature(weather.main.temp_max)} &deg;C</span></p>
         </div>
