@@ -22,16 +22,17 @@ const initialWeatherState = {
     temp: 0,
     temp_max: 0,
     temp_min: 0,
-  }
+  },
 };
 export default function useWeather() {
   const [weather, setWeather] = useState<Weather>(initialWeatherState);
-
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const fetchWeater = async (search: SearchType) => {
     setLoading(true);
-    setWeather(initialWeatherState)
+    setWeather(initialWeatherState);
+    setNotFound(false);
     try {
       const key = import.meta.env.VITE_API_KEY;
       const url = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${key}`;
@@ -39,8 +40,8 @@ export default function useWeather() {
 
       // Comprobar si existe
       if (!data[0]) {
-        console.log('Clima no encontrado');
-        return
+        setNotFound(true);
+        return;
       }
 
       const lat = data[0].lat;
@@ -65,6 +66,7 @@ export default function useWeather() {
 
   return {
     loading,
+    notFound,
     weather,
     fetchWeater,
     hasWeatherData,
