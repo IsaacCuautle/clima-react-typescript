@@ -52,9 +52,8 @@ export default function useWeather() {
 
       if (result) {
         setWeather(result);
-      } else {
-        console.log("Respuesta mal formateada");
       }
+      
     } catch (error) {
       console.log(error);
     } finally {
